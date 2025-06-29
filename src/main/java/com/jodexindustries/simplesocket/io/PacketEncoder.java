@@ -10,17 +10,17 @@ public class PacketEncoder extends MessageToByteEncoder<Packet> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, Packet packet, ByteBuf out) {
+        out.writeByte(0xAB); // magic byte
         int startIndex = out.writerIndex();
         out.writeInt(0);
 
         out.writeLong(packet.getSessionId());
-
         int packetId = PacketRegistry.getPacketId(packet.getClass());
         out.writeInt(packetId);
-
         packet.encode(out);
 
         int endIndex = out.writerIndex();
         out.setInt(startIndex, endIndex - startIndex - 4);
     }
+
 }

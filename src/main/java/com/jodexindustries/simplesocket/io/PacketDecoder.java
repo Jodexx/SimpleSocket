@@ -12,9 +12,20 @@ public class PacketDecoder extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        if (in.readableBytes() < 4) return;
+        if (in.readableBytes() < 5) return;
 
         in.markReaderIndex();
+
+        byte magic = in.readByte();
+        if (magic != (byte) 0xAB) {
+            in.resetReaderIndex(); // not this packet
+            return;
+        }
+
+        if (in.readableBytes() < 4) {
+            in.resetReaderIndex();
+            return;
+        }
 
         int packetLength = in.readInt();
         if (in.readableBytes() < packetLength) {
