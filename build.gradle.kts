@@ -12,8 +12,8 @@ repositories {
 }
 
 dependencies {
-    api("io.netty:netty-all:4.2.2.Final")
-    api("org.jetbrains:annotations:26.0.2")
+    compileOnly("io.netty:netty-all:4.2.2.Final")
+    compileOnly("org.jetbrains:annotations:26.0.2")
 }
 
 val targetJavaVersion = 8
