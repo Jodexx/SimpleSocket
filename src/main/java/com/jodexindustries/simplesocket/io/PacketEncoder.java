@@ -10,7 +10,7 @@ public class PacketEncoder extends MessageToByteEncoder<Packet> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, Packet packet, ByteBuf out) {
-        out.writeByte(0xAB); // magic byte
+        out.writeByte(0xAB3C0DE); // magic byte
         int startIndex = out.writerIndex();
         out.writeInt(0);
 
